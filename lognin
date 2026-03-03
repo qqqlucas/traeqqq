@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>钉钉智能办公平台 - 登录</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <div class="logo-icon"></div>
+            <span>东方希望</span>
+            <span class="logo-subtitle">综合办公平台</span>
+        </div>
+        <div class="social-buttons">
+            <button class="social-btn wechat"></button>
+            <button class="social-btn qq"></button>
+        </div>
+    </header>
+    <main>
+        <div class="left-section">
+            <div class="illustration">
+                <div class="cube main-cube"></div>
+                <div class="cube cube-2"></div>
+                <div class="cube cube-3"></div>
+                <div class="cube cube-4"></div>
+                <div class="red-line"></div>
+                <div class="red-line line-2"></div>
+                <div class="red-line line-3"></div>
+                <div class="red-block"></div>
+                <div class="red-stripe"></div>
+                <div class="red-stripe stripe-2"></div>
+                <div class="red-stripe stripe-3"></div>
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="login-card">
+                <div class="login-header">
+                    <h3>登录</h3>
+                    <div class="login-tabs">
+                        <button class="tab-btn active" data-tab="face">人脸识别</button>
+                        <button class="tab-btn" data-tab="password">账号密码</button>
+                    </div>
+                </div>
+                
+                <div class="login-content">
+                    <!-- 人脸识别登录 -->
+                    <div class="tab-panel active" id="face-tab">
+                        <div class="qr-code">
+                            <div class="qr-pattern"></div>
+                            <div class="qr-logo"></div>
+                        </div>
+                        <p class="login-hint">请使用人脸识别登录</p>
+                    </div>
+                    
+                    <!-- 账号密码登录 -->
+                    <div class="tab-panel" id="password-tab">
+                        <form class="login-form">
+                            <div class="form-group">
+                                <input type="text" placeholder="请输入账号" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" placeholder="请输入密码" required>
+                            </div>
+                            <button type="submit" class="login-btn">登录</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="login-footer">
+                    <a href="#">忘记密码？</a>
+                    <a href="#">立即注册</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <p>© 2026 东方希望. 保留所有权利.</p>
+            <div class="footer-links">
+                <a href="#">关于我们</a>
+                <a href="#">帮助中心</a>
+                <a href="#">隐私政策</a>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
+// 添加社交按钮的交互效果
+document.querySelectorAll('.social-btn').forEach(btn => {
+    btn.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-3px) scale(1.05)';
+    });
+    
+    btn.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+    });
+});
+
+// 为登录卡片添加悬停效果
+const loginCard = document.querySelector('.login-card');
+if (loginCard) {
+    loginCard.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-5px)';
+        this.style.boxShadow = '0 8px 32px rgba(0,0,0,0.12)';
+    });
+    
+    loginCard.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+        this.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
+    });
+}
+
+// 添加标签切换功能
+const tabBtns = document.querySelectorAll('.tab-btn');
+const tabPanels = document.querySelectorAll('.tab-panel');
+
+tabBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+        const tabId = this.getAttribute('data-tab');
+        
+        // 移除所有标签的激活状态
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabPanels.forEach(p => p.classList.remove('active'));
+        
+        // 激活当前标签
+        this.classList.add('active');
+        document.getElementById(`${tabId}-tab`).classList.add('active');
+    });
+});
+
+// 为3D插画添加更丰富的动画效果
+const cubes = document.querySelectorAll('.cube');
+cubes.forEach((cube, index) => {
+    // 添加随机的初始旋转角度
+    const randomX = Math.random() * 360;
+    const randomY = Math.random() * 360;
+    cube.style.transform = `rotateX(${randomX}deg) rotateY(${randomY}deg)`;
+    
+    // 为每个立方体添加不同的动画速度
+    const duration = 10 + index * 2;
+    cube.style.animation = `rotate ${duration}s infinite linear`;
+});
+
+// 平滑滚动效果（如果需要）
+function smoothScrollTo(element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+}
+
+// 页面加载动画
+window.addEventListener('load', function() {
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity 0.5s ease-in-out';
+    
+    setTimeout(() => {
+        document.body.style.opacity = '1';
+    }, 100);
+});
+
+// 响应式调整
+function adjustLayout() {
+    const main = document.querySelector('main');
+    const width = window.innerWidth;
+    
+    if (width < 768) {
+        main.style.flexDirection = 'column';
+    } else {
+        main.style.flexDirection = 'row';
+    }
+}
+
+window.addEventListener('resize', adjustLayout);
+
+// 初始化布局
+adjustLayout();
+
+// 为页脚链接添加交互效果
+document.querySelectorAll('.footer-links a').forEach(link => {
+    link.addEventListener('mouseenter', function() {
+        this.style.color = '#ff4d4f';
+    });
+    
+    link.addEventListener('mouseleave', function() {
+        this.style.color = '#666';
+    });
+});
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: white;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(245,245,245,0.8) 0%, rgba(255,255,255,0) 100%);
+    z-index: -1;
+}
+
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 30px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    width: 32px;
+    height: 32px;
+    background: #ff4d4f;
+    border-radius: 4px;
+    position: relative;
+}
+
+.logo-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 2px;
+}
+
+.logo span:first-child {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+}
+
+.logo-subtitle {
+    font-size: 14px;
+    color: #666;
+    font-weight: 400;
+    margin-left: 4px;
+}
+
+.social-buttons {
+    display: flex;
+    gap: 16px;
+}
+
+.social-btn {
+    width: 36px;
+    height: 36px;
+    border: 1px solid #e8e8e8;
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.social-btn:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.social-btn.wechat::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    background: #07C160;
+    border-radius: 3px;
+}
+
+.social-btn.qq::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    background: #12B7F5;
+    border-radius: 50%;
+}
+
+main {
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    padding: 0 120px;
+    gap: 150px;
+}
+
+.left-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.illustration {
+    position: relative;
+    width: 450px;
+    height: 450px;
+    perspective: 1000px;
+}
+
+.cube {
+    position: absolute;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transform-style: preserve-3d;
+}
+
+.main-cube {
+    width: 180px;
+    height: 180px;
+    top: 100px;
+    left: 100px;
+}
+
+.cube-2 {
+    width: 120px;
+    height: 120px;
+    top: 140px;
+    left: 220px;
+    background: #f8f9fa;
+}
+
+.cube-3 {
+    width: 100px;
+    height: 100px;
+    top: 240px;
+    left: 150px;
+    background: #f0f0f0;
+}
+
+.cube-4 {
+    width: 80px;
+    height: 80px;
+    top: 80px;
+    left: 180px;
+    background: #e8e8e8;
+}
+
+.red-line {
+    position: absolute;
+    background: #ff4d4f;
+    height: 2px;
+    transform-origin: left center;
+}
+
+.red-line:nth-child(4) {
+    width: 220px;
+    top: 160px;
+    left: 80px;
+    transform: rotate(25deg);
+}
+
+.red-line:nth-child(5) {
+    width: 180px;
+    top: 280px;
+    left: 180px;
+    transform: rotate(-15deg);
+}
+
+.red-line:nth-child(6) {
+    width: 200px;
+    top: 320px;
+    left: 100px;
+    transform: rotate(40deg);
+}
+
+.red-block {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: #ff4d4f;
+    top: 220px;
+    left: 280px;
+}
+
+.red-stripe {
+    position: absolute;
+    width: 120px;
+    height: 8px;
+    background: #ff4d4f;
+    top: 180px;
+    left: 60px;
+}
+
+.red-stripe.stripe-2 {
+    top: 200px;
+    left: 60px;
+}
+
+.red-stripe.stripe-3 {
+    top: 220px;
+    left: 60px;
+}
+
+@keyframes rotate {
+    0% { transform: rotateY(0deg) rotateX(0deg); }
+    100% { transform: rotateY(360deg) rotateX(360deg); }
+}
+
+.right-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-card {
+    width: 340px;
+    padding: 40px 30px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.login-header {
+    margin-bottom: 30px;
+}
+
+.login-header h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.login-tabs {
+    display: flex;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 30px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px 0;
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.tab-btn.active {
+    color: #ff4d4f;
+    font-weight: 500;
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #ff4d4f;
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+.qr-code {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    background: #333;
+    margin: 0 auto 20px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.qr-pattern {
+    width: 160px;
+    height: 160px;
+    background: repeating-linear-gradient(45deg, #fff 0px, #fff 20px, #333 20px, #333 40px);
+    opacity: 0.3;
+}
+
+.qr-logo {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #ff4d4f;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.qr-logo::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 2px;
+}
+
+.login-hint {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e8e8e8;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #ff4d4f;
+    box-shadow: 0 0 0 2px rgba(255,77,79,0.1);
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: #ff4d4f;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    background: #ff7875;
+}
+
+.login-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.login-footer a {
+    font-size: 12px;
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.login-footer a:hover {
+    color: #ff4d4f;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 60px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-content p {
+    font-size: 12px;
+    color: #999;
+}
+
+.footer-links {
+    display: flex;
+    gap: 24px;
+}
+
+.footer-links a {
+    font-size: 12px;
+    color: #666;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: #ff4d4f;
+}
+
+@media (max-width: 1200px) {
+    main {
+        padding: 0 80px;
+        gap: 100px;
+    }
+    
+    .illustration {
+        width: 350px;
+        height: 350px;
+    }
+    
+    .main-cube {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .cube-2 {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .cube-3 {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .cube-4 {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .qr-card {
+        width: 280px;
+        padding: 30px 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+        padding: 100px 20px 100px;
+        gap: 50px;
+    }
+    
+    header {
+        padding: 20px;
+    }
+    
+    footer {
+        padding: 20px;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .left-section,
+    .right-section {
+        flex: none;
+    }
+}
